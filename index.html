@@ -11,7 +11,7 @@
 <meta property="og:site_name" content="Masum Labs">
 <meta property="og:title" content="Masum Labs | Developer & Publisher">
 <meta property="og:description" content="Fast, private browser extensions that give you your time back.">
-<meta property="og:image" content="og-image.png">
+<meta property="og:image" content="og-image.png"><!-- Placeholder: add a 1200x630 image named og-image.png -->
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%3E%3Crect%20width=%2224%22%20height=%2224%22%20rx=%225%22%20fill=%22%234338CA%22/%3E%3Cpath%20d=%22M4%2020V10A4%204%200%200%201%2012%2010V20H9V10A1%201%200%200%200%207%2010V20Z%22%20fill=%22%23FAFAF9%22/%3E%3Cpath%20d=%22M20%2020V10A4%204%200%200%200%2012%2010V20H15V10A1%201%200%200%201%2017%2010V20Z%22%20fill=%22%23FAFAF9%22/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,6 +26,7 @@ tailwind.config = { theme: { extend: {
 } } }
 </script>
 <style>
+  /* Metric-matched fallback so the font swap causes no layout shift */
   @font-face { font-family: 'Inter Fallback'; src: local('Arial'); size-adjust: 107.4%; ascent-override: 90.2%; descent-override: 22.5%; line-gap-override: 0%; }
   body { background: #fafaf9; color: #16161d; -webkit-font-smoothing: antialiased; font-feature-settings: 'cv11', 'ss01'; }
   .glass { background: rgba(255,255,255,.66); backdrop-filter: blur(20px) saturate(170%); -webkit-backdrop-filter: blur(20px) saturate(170%); border: 1px solid rgba(255,255,255,.9); }
@@ -66,21 +67,374 @@ tailwind.config = { theme: { extend: {
 <body class="font-sans">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="ml-logo" viewBox="0 0 24 24"><rect width="24" height="24" rx="5" fill="#4338CA"/><path d="M4 20V10A4 4 0 0 1 12 10V20H9V10A1 1 0 0 0 7 10V20Z" fill="#FAFAF9"/><path d="M20 20V10A4 4 0 0 0 12 10V20H15V10A1 1 0 0 1 17 10V20Z" fill="#FAFAF9"/></symbol></svg>
 <a href="#main" class="sr-only z-[60] rounded-lg bg-ink px-4 py-2 text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4">Skip to content</a>
-<header class="fixed inset-x-0 top-0 z-50 px-4 pt-4"><nav class="glass relative mx-auto flex h-16 max-w-6xl items-center justify-between rounded-2xl px-5 shadow-[0_8px_30px_-12px_rgba(22,22,29,.2)]" aria-label="Primary"><a href="#top" class="flex items-center gap-2.5 text-[19px] tracking-[-0.03em]" aria-label="Masum Labs, back to top"><svg class="h-9 w-9 shrink-0 drop-shadow-[0_6px_12px_rgba(67,56,202,.35)]" width="36" height="36" viewBox="0 0 24 24" aria-hidden="true"><use href="#ml-logo"/></svg><span><span class="font-bold">Masum</span> <span class="font-medium text-muted">Labs</span></span></a><ul id="menu" class="absolute left-0 right-0 top-[72px] hidden flex-col gap-1 rounded-2xl border border-white/90 bg-white/95 p-3 text-base font-semibold shadow-xl md:static md:flex md:flex-row md:gap-8 md:border-0 md:bg-transparent md:p-0 md:text-sm md:shadow-none"><li><a class="link block rounded-lg px-3 py-3 text-muted transition hover:text-royal-600 md:p-0" href="#extensions">Extensions</a></li><li><a class="link block rounded-lg px-3 py-3 text-muted transition hover:text-royal-600 md:p-0" href="#philosophy">Philosophy</a></li><li><a class="link block rounded-lg px-3 py-3 text-muted transition hover:text-royal-600 md:p-0" href="#faq">FAQ</a></li></ul><div class="flex items-center gap-2"><a href="#extensions" class="btn hidden rounded-xl px-4 py-2 text-sm font-semibold text-white sm:block">Get extensions</a><button id="burger" class="grid h-10 w-10 place-items-center rounded-lg md:hidden" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg></button></div></nav></header>
+
+<header class="fixed inset-x-0 top-0 z-50 px-4 pt-4">
+  <nav class="glass relative mx-auto flex h-16 max-w-6xl items-center justify-between rounded-2xl px-5 shadow-[0_8px_30px_-12px_rgba(22,22,29,.2)]" aria-label="Primary">
+    <a href="#top" class="flex items-center gap-2.5 text-[19px] tracking-[-0.03em]" aria-label="Masum Labs, back to top">
+      <svg class="h-9 w-9 shrink-0 drop-shadow-[0_6px_12px_rgba(67,56,202,.35)]" width="36" height="36" viewBox="0 0 24 24" aria-hidden="true"><use href="#ml-logo"/></svg>
+      <span><span class="font-bold">Masum</span> <span class="font-medium text-muted">Labs</span></span>
+    </a>
+    <ul id="menu" class="absolute left-0 right-0 top-[72px] hidden flex-col gap-1 rounded-2xl border border-white/90 bg-white/95 p-3 text-base font-semibold shadow-xl md:static md:flex md:flex-row md:gap-8 md:border-0 md:bg-transparent md:p-0 md:text-sm md:shadow-none">
+      <!-- Internal navigation only. Never add external links here. -->
+      <li><a class="link block rounded-lg px-3 py-3 text-muted transition hover:text-royal-600 md:p-0" href="#extensions">Extensions</a></li>
+      <li><a class="link block rounded-lg px-3 py-3 text-muted transition hover:text-royal-600 md:p-0" href="#philosophy">Philosophy</a></li>
+      <li><a class="link block rounded-lg px-3 py-3 text-muted transition hover:text-royal-600 md:p-0" href="#faq">FAQ</a></li>
+    </ul>
+    <div class="flex items-center gap-2">
+      <a href="#extensions" class="btn hidden rounded-xl px-4 py-2 text-sm font-semibold text-white sm:block">Get extensions</a>
+      <button id="burger" class="grid h-10 w-10 place-items-center rounded-lg md:hidden" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
 <main id="main">
-<section id="top" class="relative overflow-hidden px-6 pb-24 pt-40 sm:pt-48" aria-labelledby="hero-h"><div class="grid-fade absolute inset-0" aria-hidden="true"></div><div class="glow -left-24 top-8 h-[26rem] w-[26rem] bg-indigo-300/50" aria-hidden="true"></div><div class="glow -right-24 top-40 h-[26rem] w-[26rem] bg-sky-200/70" style="animation-delay:-8s" aria-hidden="true"></div><div class="relative mx-auto max-w-4xl text-center"><p class="glass reveal mx-auto mb-8 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-semibold text-muted"><svg class="text-royal-600" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 4.5 3.2 8 8 9 4.8-1 8-4.5 8-9V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>Your data never leaves your device</p><h1 id="hero-h" class="reveal text-balance text-5xl font-extrabold leading-[1.04] tracking-[-0.04em] sm:text-7xl" style="--d:.08s">Empowering your browser. Simplifying your life.</h1><p class="reveal mx-auto mt-7 max-w-2xl text-balance text-lg leading-relaxed text-muted sm:text-xl" style="--d:.16s">Masum Labs builds small, fast extensions that remove everyday friction. They save you minutes every day and never ask for more of your data than they need.</p><div class="reveal mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row" style="--d:.24s"><a href="#extensions" class="btn rounded-xl px-7 py-3.5 font-semibold text-white">Explore extensions</a><a href="#philosophy" class="ghost glass rounded-xl px-7 py-3.5 font-semibold text-ink hover:text-royal-600">Why people trust us</a></div><div class="glass reveal mx-auto mt-20 max-w-2xl overflow-hidden rounded-2xl text-left shadow-[0_30px_80px_-30px_rgba(67,56,202,.4)]" style="--d:.32s" aria-hidden="true"><div class="flex items-center gap-2 border-b border-ink/5 px-4 py-3"><span class="h-2.5 w-2.5 rounded-full bg-ink/15"></span><span class="h-2.5 w-2.5 rounded-full bg-ink/15"></span><span class="h-2.5 w-2.5 rounded-full bg-ink/15"></span><span class="ml-3 flex-1 truncate rounded-md bg-ink/5 px-3 py-1 text-xs text-muted">example.com/research</span></div><div class="h-[168px] space-y-3 p-6 text-[15px] leading-relaxed text-muted sm:h-[148px] sm:p-8"><p>Find what matters on any page in seconds. Important <span class="hl">keywords</span> stand out instantly, so you can scan long articles, <span class="hl b">research</span> and listings without reading every line.</p><div class="h-2 w-4/5 rounded bg-ink/5"></div><div class="h-2 w-3/5 rounded bg-ink/5"></div></div></div></div></section>
-<section class="px-6 pb-6" aria-label="Availability"><div class="glass reveal mx-auto flex max-w-4xl flex-col items-center justify-center gap-2 rounded-2xl px-6 py-4 text-center text-sm font-semibold sm:flex-row sm:gap-5"><p>Available on Firefox &amp; Microsoft Edge</p><span class="hidden text-ink/30 sm:inline" aria-hidden="true">&bull;</span><p>Works on desktop and supported mobile browsers</p></div></section>
-<section id="extensions" class="px-6 py-24 sm:py-32" aria-labelledby="ext-h"><div class="mx-auto max-w-6xl"><div class="reveal max-w-2xl"><h2 id="ext-h" class="text-4xl font-extrabold tracking-[-0.035em] sm:text-5xl">Browse by category</h2><p class="mt-4 text-lg text-muted">Find the right tool, then install it from the official store for your browser.</p></div><div class="glass reveal mt-12 grid gap-4 rounded-[2rem] p-3 shadow-[0_30px_80px_-40px_rgba(67,56,202,.35)] sm:p-4 lg:grid-cols-[260px_1fr]" style="--d:.1s"><div role="tablist" aria-orientation="vertical" aria-label="Extension categories" class="flex gap-1 overflow-x-auto p-1 lg:flex-col lg:overflow-visible"><button type="button" role="tab" id="tab-all" aria-controls="panel" aria-selected="false" tabindex="-1" data-cat="all" data-title="All extensions" data-desc="Everything we have published, in one place." class="tab flex shrink-0 items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold text-muted transition hover:bg-white/70 hover:text-ink lg:w-full"><span class="flex-1 whitespace-nowrap">All extensions</span><span class="count rounded-full bg-ink/5 px-2 py-0.5 text-xs" data-count="all">0</span></button><button type="button" role="tab" id="tab-privacy" aria-controls="panel" aria-selected="false" tabindex="-1" data-cat="privacy" data-title="Privacy &amp; Security" data-desc="Tools that protect what you share and keep your data on your device." class="tab flex shrink-0 items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold text-muted transition hover:bg-white/70 hover:text-ink lg:w-full"><span class="flex-1 whitespace-nowrap">Privacy &amp; Security</span><span class="count rounded-full bg-ink/5 px-2 py-0.5 text-xs" data-count="privacy">0</span></button><button type="button" role="tab" id="tab-productivity" aria-controls="panel" aria-selected="false" tabindex="-1" data-cat="productivity" data-title="Productivity &amp; SEO" data-desc="Tools that help you read, research and work faster." class="tab flex shrink-0 items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold text-muted transition hover:bg-white/70 hover:text-ink lg:w-full"><span class="flex-1 whitespace-nowrap">Productivity &amp; SEO</span><span class="count rounded-full bg-ink/5 px-2 py-0.5 text-xs" data-count="productivity">0</span></button><button type="button" role="tab" id="tab-education" aria-controls="panel" aria-selected="false" tabindex="-1" data-cat="education" data-title="Education" data-desc="Tools for learning, teaching and study." class="tab flex shrink-0 items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold text-muted transition hover:bg-white/70 hover:text-ink lg:w-full"><span class="flex-1 whitespace-nowrap">Education</span><span class="count rounded-full bg-ink/5 px-2 py-0.5 text-xs" data-count="education">0</span></button><button type="button" role="tab" id="tab-devtools" aria-controls="panel" aria-selected="false" tabindex="-1" data-cat="devtools" data-title="Developer Tools" data-desc="Utilities for people who build for the web." class="tab flex shrink-0 items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold text-muted transition hover:bg-white/70 hover:text-ink lg:w-full"><span class="flex-1 whitespace-nowrap">Developer Tools</span><span class="count rounded-full bg-ink/5 px-2 py-0.5 text-xs" data-count="devtools">0</span></button><button type="button" role="tab" id="tab-upcoming" aria-controls="panel" aria-selected="false" tabindex="-1" data-cat="upcoming" data-title="Upcoming / Beta" data-desc="What we are working on next." class="tab flex shrink-0 items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold text-muted transition hover:bg-white/70 hover:text-ink lg:w-full"><span class="flex-1 whitespace-nowrap">Upcoming / Beta</span><span class="count rounded-full bg-ink/5 px-2 py-0.5 text-xs" data-count="upcoming">0</span></button></div><div id="panel" role="tabpanel" tabindex="0" class="rounded-3xl bg-white/70 p-6 sm:p-8"><h3 id="cat-title" class="text-2xl font-extrabold tracking-tight"></h3><p id="cat-desc" class="mt-1 text-muted"></p><div id="cards" class="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2"><article class="card spot glass flex flex-col rounded-3xl p-7" data-cat="privacy" aria-labelledby="x-privacy"><div class="flex items-start justify-between gap-3"><div class="grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br from-sky-500 to-indigo-600 text-white shadow-lg"><span class="text-xl font-bold">A</span></div><span class="inline-flex items-center gap-1.5 rounded-full bg-indigo-50 px-3 py-1 text-xs font-bold text-royal-700">Mobile ready</span></div><p class="mt-5 text-sm font-semibold text-royal-700">Privacy &amp; Security</p><h4 id="x-privacy" class="mt-1 text-xl font-bold tracking-tight">AI Metadata Cleaner</h4><p class="mt-2 flex-1 leading-relaxed text-muted">Clear hidden metadata from your content before you share it, so what you publish says only what you meant it to say.</p><div class="mt-6 grid gap-3 sm:grid-cols-2"><a href="https://addons.mozilla.org/en-US/firefox/addon/ai-metadata-cleaner/" target="_blank" rel="noopener noreferrer" class="btn flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-white">Firefox</a><a href="https://microsoftedge.microsoft.com/addons/detail/ai-metadata-cleaner/lpfieaplljobmmhnmfafajoldnnjlbjc?hl=en-US" target="_blank" rel="noopener noreferrer" class="ghost flex items-center justify-center gap-2 rounded-xl border border-ink/15 bg-white px-4 py-3 text-sm font-semibold hover:border-royal-500 hover:text-royal-600">Edge</a></div></article><article class="card spot glass flex flex-col rounded-3xl p-7" data-cat="productivity" aria-labelledby="x-productivity"><div class="flex items-start justify-between gap-3"><div class="grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br from-indigo-500 to-indigo-700 text-white shadow-lg"><span class="text-xl font-bold">K</span></div><span class="inline-flex items-center gap-1.5 rounded-full bg-indigo-50 px-3 py-1 text-xs font-bold text-royal-700">Mobile ready</span></div><p class="mt-5 text-sm font-semibold text-royal-700">Productivity &amp; SEO</p><h4 id="x-productivity" class="mt-1 text-xl font-bold tracking-tight">Keyword Highlighter Pro</h4><p class="mt-2 flex-1 leading-relaxed text-muted">Highlight the words you care about on any web page. Scan long articles, research and listings in a fraction of the time.</p><div class="mt-6 grid gap-3 sm:grid-cols-2"><a href="https://addons.mozilla.org/en-US/firefox/addon/keyword-highlighter-pro/" target="_blank" rel="noopener noreferrer" class="btn flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-white">Firefox</a><a href="https://microsoftedge.microsoft.com/addons/detail/keyword-highlighter-pro/onbapighdccfidbjocnjknomcobdkmml" target="_blank" rel="noopener noreferrer" class="ghost flex items-center justify-center gap-2 rounded-xl border border-ink/15 bg-white px-4 py-3 text-sm font-semibold hover:border-royal-500 hover:text-royal-600">Edge</a></div></article><article class="relative flex flex-col rounded-3xl border border-dashed border-royal-500/40 bg-gradient-to-br from-indigo-50/80 to-white/40 p-7" data-cat="upcoming" aria-labelledby="x-chrome"><div class="flex items-start justify-between gap-3"><div class="grid h-12 w-12 place-items-center rounded-2xl bg-ink/10 text-ink/60 opacity-70"><span class="text-xl">C</span></div><span class="rounded-full bg-royal-600 px-3 py-1 text-xs font-bold text-white">Coming soon</span></div><p class="mt-5 text-sm font-semibold text-royal-700">Upcoming / Beta</p><h4 id="x-chrome" class="mt-1 text-xl font-bold tracking-tight">Chrome Extensions</h4><p class="mt-2 flex-1 leading-relaxed text-muted">Our most-requested release is on the way: the same fast, private tools, rebuilt for the Chrome Web Store.</p><a href="#contact" data-prefill="I'd like to be notified when your Chrome extensions launch." data-subject="Chrome launch notification" class="ghost mt-6 flex items-center justify-center rounded-xl border border-royal-500/50 bg-white px-4 py-3 text-sm font-semibold text-royal-700 hover:border-royal-600">Notify me at launch</a></article></div><div id="empty" hidden class="mt-7 rounded-2xl border border-dashed border-ink/15 px-6 py-14 text-center"><p class="text-lg font-bold">No extensions here yet</p><p class="mx-auto mt-2 max-w-sm text-muted">New tools will appear in this category as we publish them. Have an idea?</p><a href="#contact" class="mt-5 inline-block font-semibold text-royal-600 underline underline-offset-4">Tell us what you need</a></div></div></div></div></section>
-<section id="philosophy" class="px-6 py-24 sm:py-32" aria-labelledby="dna-h"><div class="mx-auto max-w-6xl"><div class="reveal max-w-2xl"><h2 id="dna-h" class="text-4xl font-extrabold tracking-[-0.035em] sm:text-5xl">Our philosophy</h2><p class="mt-4 text-lg text-muted">Trust is earned slowly. Four principles shape every line of code we ship.</p></div><div class="reveal mt-14 grid gap-px overflow-hidden rounded-3xl bg-ink/10 shadow-[0_20px_60px_-30px_rgba(67,56,202,.25)] md:grid-cols-2 lg:grid-cols-4"><div class="bg-paper p-9"><h3 class="text-xl font-bold">User-centric</h3><p class="mt-3 leading-relaxed text-muted">Interfaces that make sense on first use. If a tool needs a manual, we fix the tool.</p></div><div class="bg-paper p-9"><h3 class="text-xl font-bold">Privacy first</h3><p class="mt-3 leading-relaxed text-muted">Our extensions work on your device and send nothing to our servers. Read the <a class="font-semibold text-royal-600 underline underline-offset-4" href="privacy.html">privacy policy</a>.</p></div><div class="bg-paper p-9"><h3 class="text-xl font-bold">Lightweight</h3><p class="mt-3 leading-relaxed text-muted">One job, done well, in a tiny footprint that never slows your browser.</p></div><div class="bg-paper p-9"><h3 class="text-xl font-bold">Cross-device</h3><p class="mt-3 leading-relaxed text-muted">Designed for desktop and for mobile browsers that support extensions.</p></div></div></div></section>
-<section id="faq" class="px-6 py-24 sm:py-32" aria-labelledby="faq-h"><div class="mx-auto max-w-3xl"><h2 id="faq-h" class="reveal text-4xl font-extrabold tracking-[-0.035em] sm:text-5xl">Frequently asked questions</h2><div class="reveal mt-12 space-y-4" style="--d:.1s"><details class="faq glass group rounded-2xl px-6 py-5"><summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-left font-bold">Are your extensions free?</summary><p class="mt-3 leading-relaxed text-muted">Pricing is always shown on the official store page of each extension. We never take payments through this website.</p></details><details class="faq glass group rounded-2xl px-6 py-5"><summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-left font-bold">Is my data safe?</summary><p class="mt-3 leading-relaxed text-muted">Our extensions process data locally on your device and do not send it to our servers. They contain no analytics or trackers. See our <a class="font-semibold text-royal-600 underline underline-offset-4" href="privacy.html">privacy policy</a>.</p></details><details class="faq glass group rounded-2xl px-6 py-5"><summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-left font-bold">Does it work on mobile?</summary><p class="mt-3 leading-relaxed text-muted">Our extensions are lightweight and built for small screens too. They work in mobile browsers that support extensions, such as Firefox for Android.</p></details><details class="faq glass group rounded-2xl px-6 py-5"><summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-left font-bold">Which browsers do you support?</summary><p class="mt-3 leading-relaxed text-muted">Firefox and Microsoft Edge today. Chrome versions are on the way.</p></details><details class="faq glass group rounded-2xl px-6 py-5"><summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-left font-bold">How do I report a bug or suggest a feature?</summary><p class="mt-3 leading-relaxed text-muted">Use the contact form below. We read every message and reply as soon as possible.</p></details></div></div></section>
-<section id="contact" class="px-6 py-24 sm:py-32" aria-labelledby="c-h"><div class="relative mx-auto grid max-w-6xl gap-10 overflow-hidden rounded-[2rem] bg-gradient-to-br from-royal-600 via-royal-700 to-[#1e1b4b] p-8 shadow-[0_40px_100px_-40px_rgba(67,56,202,.7)] sm:p-12 lg:grid-cols-5 lg:items-center"><div class="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-indigo-300/30 blur-3xl" aria-hidden="true"></div><div class="reveal lg:col-span-2"><h2 id="c-h" class="text-white text-4xl font-extrabold tracking-[-0.035em] sm:text-5xl">Let's talk</h2><p class="mt-4 text-lg leading-relaxed text-indigo-100">Questions, feedback or an idea for a tool you wish existed? Send a message. A real person reads every one and replies as soon as possible.</p></div><div class="reveal relative rounded-3xl bg-white p-7 shadow-2xl sm:p-10 lg:col-span-3" style="--d:.1s"><div id="success" class="hidden py-10 text-center" role="status" tabindex="-1"><div class="mx-auto grid h-16 w-16 place-items-center rounded-full bg-emerald-100 text-emerald-700"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="check" d="m5 12.5 4.5 4.5L19 7.5"/></svg></div><h3 class="mt-6 text-2xl font-bold">Message received</h3><p class="mx-auto mt-2 max-w-sm text-muted">Thank you for reaching out. We will get back to you soon.</p></div><form id="form" action="https://formspree.io/f/myezrzqr" method="POST" class="space-y-5" novalidate><div class="grid gap-5 sm:grid-cols-2"><div><label for="name" class="mb-2 block text-sm font-semibold">Name</label><input id="name" name="name" type="text" required autocomplete="name" class="w-full rounded-xl border border-ink/20 bg-white px-4 py-3 text-base" placeholder="Your name"></div><div><label for="email" class="mb-2 block text-sm font-semibold">Email</label><input id="email" name="email" type="email" required autocomplete="email" class="w-full rounded-xl border border-ink/20 bg-white px-4 py-3 text-base" placeholder="you@example.com"></div></div><div><label for="subject" class="mb-2 block text-sm font-semibold">Subject</label><select id="subject" name="subject" required class="w-full rounded-xl border border-ink/20 bg-white px-4 py-3 text-base"><option value="" disabled selected>Choose a subject</option><option value="General question">General question</option><option value="Bug report">Bug report</option><option value="Feature request or idea">Feature request or idea</option><option value="Chrome launch notification">Chrome launch notification</option><option value="Partnership or press">Partnership or press</option><option value="Other">Other</option></select></div><div><label for="message" class="mb-2 block text-sm font-semibold">Message</label><textarea id="message" name="message" rows="5" required class="w-full resize-y rounded-xl border border-ink/20 bg-white px-4 py-3 text-base" placeholder="How can we help?"></textarea></div><input type="hidden" name="_subject" id="_subject" value="Masum Labs website message"><input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true"><button id="send" type="submit" class="btn w-full rounded-xl px-6 py-3.5 font-semibold text-white disabled:opacity-70">Send message</button><p id="msg" class="min-h-[1.5rem] text-center text-sm font-semibold" role="alert"></p><p class="text-center text-sm text-muted">Your details are used only to reply to you. We never share them.</p></form></div></div></section>
+<!-- HERO -->
+<section id="top" class="relative overflow-hidden px-6 pb-24 pt-40 sm:pt-48" aria-labelledby="hero-h">
+  <div class="grid-fade absolute inset-0" aria-hidden="true"></div>
+  <div class="glow -left-24 top-8 h-[26rem] w-[26rem] bg-indigo-300/50" aria-hidden="true"></div>
+  <div class="glow -right-24 top-40 h-[26rem] w-[26rem] bg-sky-200/70" style="animation-delay:-8s" aria-hidden="true"></div>
+  <div class="relative mx-auto max-w-4xl text-center">
+    <p class="glass reveal mx-auto mb-8 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-semibold text-muted"><svg class="text-royal-600" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 4.5 3.2 8 8 9 4.8-1 8-4.5 8-9V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>Your data never leaves your device</p>
+    <h1 id="hero-h" class="reveal text-balance text-5xl font-extrabold leading-[1.04] tracking-[-0.04em] sm:text-7xl" style="--d:.08s">Empowering your browser. Simplifying your life.</h1>
+    <p class="reveal mx-auto mt-7 max-w-2xl text-balance text-lg leading-relaxed text-muted sm:text-xl" style="--d:.16s">Masum Labs builds small, fast extensions that remove everyday friction. They save you minutes every day and never ask for more of your data than they need.</p>
+    <div class="reveal mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row" style="--d:.24s">
+      <a href="#extensions" class="btn rounded-xl px-7 py-3.5 font-semibold text-white">Explore extensions</a>
+      <a href="#philosophy" class="ghost glass rounded-xl px-7 py-3.5 font-semibold text-ink hover:text-royal-600">Why people trust us</a>
+    </div>
+    <div class="glass reveal mx-auto mt-20 max-w-2xl overflow-hidden rounded-2xl text-left shadow-[0_30px_80px_-30px_rgba(67,56,202,.4)]" style="--d:.32s" aria-hidden="true">
+      <div class="flex items-center gap-2 border-b border-ink/5 px-4 py-3">
+        <span class="h-2.5 w-2.5 rounded-full bg-ink/15"></span><span class="h-2.5 w-2.5 rounded-full bg-ink/15"></span><span class="h-2.5 w-2.5 rounded-full bg-ink/15"></span>
+        <span class="ml-3 flex-1 truncate rounded-md bg-ink/5 px-3 py-1 text-xs text-muted">example.com/research</span>
+      </div>
+      <div class="h-[168px] space-y-3 p-6 text-[15px] leading-relaxed text-muted sm:h-[148px] sm:p-8">
+        <p>Find what matters on any page in seconds. Important <span class="hl">keywords</span> stand out instantly, so you can scan long articles, <span class="hl b">research</span> and listings without reading every line.</p>
+        <div class="h-2 w-4/5 rounded bg-ink/5"></div><div class="h-2 w-3/5 rounded bg-ink/5"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Availability strip -->
+<section class="px-6 pb-6" aria-label="Availability">
+  <div class="glass reveal mx-auto flex max-w-4xl flex-col items-center justify-center gap-2 rounded-2xl px-6 py-4 text-center text-sm font-semibold sm:flex-row sm:gap-5">
+    <p>Available on Firefox &amp; Microsoft Edge</p><span class="hidden text-ink/30 sm:inline" aria-hidden="true">&bull;</span><p>Works on desktop and supported mobile browsers</p>
+  </div>
+</section>
+
+<!-- CATEGORY SHOWCASE: tabs on the left, cards on the right. To add a category, add one entry to the tab list (and the footer). To add an extension, copy a card. Counts update automatically. -->
+<section id="extensions" class="px-6 py-24 sm:py-32" aria-labelledby="ext-h">
+  <div class="mx-auto max-w-6xl">
+    <div class="reveal max-w-2xl">
+      <h2 id="ext-h" class="text-4xl font-extrabold tracking-[-0.035em] sm:text-5xl">Browse by category</h2>
+      <p class="mt-4 text-lg text-muted">Find the right tool, then install it from the official store for your browser.</p>
+    </div>
+    <div class="glass reveal mt-12 grid gap-4 rounded-[2rem] p-3 shadow-[0_30px_80px_-40px_rgba(67,56,202,.35)] sm:p-4 lg:grid-cols-[260px_1fr]" style="--d:.1s">
+      <div role="tablist" aria-orientation="vertical" aria-label="Extension categories" class="flex gap-1 overflow-x-auto p-1 lg:flex-col lg:overflow-visible"><button type="button" role="tab" id="tab-all" aria-controls="panel" aria-selected="false" tabindex="-1" data-cat="all" data-title="All extensions" data-desc="Everything we have published, in one place." class="tab flex shrink-0 items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold text-muted transition hover:bg-white/70 hover:text-ink lg:w-full"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span class="flex-1 whitespace-nowrap">All extensions</span><span class="count rounded-full bg-ink/5 px-2 py-0.5 text-xs" data-count="all">0</span></button><button type="button" role="tab" id="tab-privacy" aria-controls="panel" aria-selected="false" tabindex="-1" data-cat="privacy" data-title="Privacy &amp; Security" data-desc="Tools that protect what you share and keep your data on your device." class="tab flex shrink-0 items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold text-muted transition hover:bg-white/70 hover:text-ink lg:w-full"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 4.5 3.2 8 8 9 4.8-1 8-4.5 8-9V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg><span class="flex-1 whitespace-nowrap">Privacy &amp; Security</span><span class="count rounded-full bg-ink/5 px-2 py-0.5 text-xs" data-count="privacy">0</span></button><button type="button" role="tab" id="tab-productivity" aria-controls="panel" aria-selected="false" tabindex="-1" data-cat="productivity" data-title="Productivity &amp; SEO" data-desc="Tools that help you read, research and work faster." class="tab flex shrink-0 items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold text-muted transition hover:bg-white/70 hover:text-ink lg:w-full"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/></svg><span class="flex-1 whitespace-nowrap">Productivity &amp; SEO</span><span class="count rounded-full bg-ink/5 px-2 py-0.5 text-xs" data-count="productivity">0</span></button><button type="button" role="tab" id="tab-education" aria-controls="panel" aria-selected="false" tabindex="-1" data-cat="education" data-title="Education" data-desc="Tools for learning, teaching and study." class="tab flex shrink-0 items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold text-muted transition hover:bg-white/70 hover:text-ink lg:w-full"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1 3 3 6 3s6-2 6-3v-5"/></svg><span class="flex-1 whitespace-nowrap">Education</span><span class="count rounded-full bg-ink/5 px-2 py-0.5 text-xs" data-count="education">0</span></button><button type="button" role="tab" id="tab-devtools" aria-controls="panel" aria-selected="false" tabindex="-1" data-cat="devtools" data-title="Developer Tools" data-desc="Utilities for people who build for the web." class="tab flex shrink-0 items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold text-muted transition hover:bg-white/70 hover:text-ink lg:w-full"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 8-4 4 4 4M16 8l4 4-4 4"/></svg><span class="flex-1 whitespace-nowrap">Developer Tools</span><span class="count rounded-full bg-ink/5 px-2 py-0.5 text-xs" data-count="devtools">0</span></button><button type="button" role="tab" id="tab-upcoming" aria-controls="panel" aria-selected="false" tabindex="-1" data-cat="upcoming" data-title="Upcoming / Beta" data-desc="What we are working on next." class="tab flex shrink-0 items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold text-muted transition hover:bg-white/70 hover:text-ink lg:w-full"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span class="flex-1 whitespace-nowrap">Upcoming / Beta</span><span class="count rounded-full bg-ink/5 px-2 py-0.5 text-xs" data-count="upcoming">0</span></button></div>
+      <div id="panel" role="tabpanel" tabindex="0" class="rounded-3xl bg-white/70 p-6 sm:p-8">
+        <h3 id="cat-title" class="text-2xl font-extrabold tracking-tight"></h3>
+        <p id="cat-desc" class="mt-1 text-muted"></p>
+        <div id="cards" class="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
+        <!-- EXTENSION CARD: copy this block for each new extension. Set data-cat to a category key (privacy, productivity, education, devtools) -->
+        <article class="card spot glass flex flex-col rounded-3xl p-7" data-cat="privacy" aria-labelledby="x-privacy">
+          <div class="flex items-start justify-between gap-3"><div class="grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br from-sky-500 to-indigo-600 text-white shadow-lg"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 4.5 3.2 8 8 9 4.8-1 8-4.5 8-9V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg></div><span class="inline-flex items-center gap-1.5 rounded-full bg-indigo-50 px-3 py-1 text-xs font-bold text-royal-700"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>Mobile ready</span></div>
+          <p class="mt-5 text-sm font-semibold text-royal-700">Privacy &amp; Security</p>
+          <h4 id="x-privacy" class="mt-1 text-xl font-bold tracking-tight">AI Metadata Cleaner</h4>
+          <p class="mt-2 flex-1 leading-relaxed text-muted">Clear hidden metadata from your content before you share it, so what you publish says only what you meant it to say.</p>
+          <div class="mt-6 grid gap-3 sm:grid-cols-2">
+            <a href="https://addons.mozilla.org/en-US/firefox/addon/ai-metadata-cleaner/" target="_blank" rel="noopener noreferrer" class="btn flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-white" aria-label="Get AI Metadata Cleaner for Firefox (opens in new tab)"><span class="h-2.5 w-2.5 rounded-full bg-orange-400" aria-hidden="true"></span>Firefox</a>
+            <a href="https://microsoftedge.microsoft.com/addons/detail/ai-metadata-cleaner/lpfieaplljobmmhnmfafajoldnnjlbjc?hl=en-US" target="_blank" rel="noopener noreferrer" class="ghost flex items-center justify-center gap-2 rounded-xl border border-ink/15 bg-white px-4 py-3 text-sm font-semibold hover:border-royal-500 hover:text-royal-600" aria-label="Get AI Metadata Cleaner for Edge (opens in new tab)"><span class="h-2.5 w-2.5 rounded-full bg-cyan-500" aria-hidden="true"></span>Edge</a>
+          </div>
+        </article>
+        <!-- EXTENSION CARD: copy this block for each new extension. Set data-cat to a category key (privacy, productivity, education, devtools) -->
+        <article class="card spot glass flex flex-col rounded-3xl p-7" data-cat="productivity" aria-labelledby="x-productivity">
+          <div class="flex items-start justify-between gap-3"><div class="grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br from-indigo-500 to-indigo-700 text-white shadow-lg"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 11-6 6v3h9l3-3"/><path d="m22 12-4.6 4.6a2 2 0 0 1-2.8 0l-5.2-5.2a2 2 0 0 1 0-2.8L14 4"/></svg></div><span class="inline-flex items-center gap-1.5 rounded-full bg-indigo-50 px-3 py-1 text-xs font-bold text-royal-700"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg>Mobile ready</span></div>
+          <p class="mt-5 text-sm font-semibold text-royal-700">Productivity &amp; SEO</p>
+          <h4 id="x-productivity" class="mt-1 text-xl font-bold tracking-tight">Keyword Highlighter Pro</h4>
+          <p class="mt-2 flex-1 leading-relaxed text-muted">Highlight the words you care about on any web page. Scan long articles, research and listings in a fraction of the time.</p>
+          <div class="mt-6 grid gap-3 sm:grid-cols-2">
+            <a href="https://addons.mozilla.org/en-US/firefox/addon/keyword-highlighter-pro/" target="_blank" rel="noopener noreferrer" class="btn flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-white" aria-label="Get Keyword Highlighter Pro for Firefox (opens in new tab)"><span class="h-2.5 w-2.5 rounded-full bg-orange-400" aria-hidden="true"></span>Firefox</a>
+            <a href="https://microsoftedge.microsoft.com/addons/detail/keyword-highlighter-pro/onbapighdccfidbjocnjknomcobdkmml" target="_blank" rel="noopener noreferrer" class="ghost flex items-center justify-center gap-2 rounded-xl border border-ink/15 bg-white px-4 py-3 text-sm font-semibold hover:border-royal-500 hover:text-royal-600" aria-label="Get Keyword Highlighter Pro for Edge (opens in new tab)"><span class="h-2.5 w-2.5 rounded-full bg-cyan-500" aria-hidden="true"></span>Edge</a>
+          </div>
+        </article>
+        <!-- UPCOMING CARD: delete or move into a category once released -->
+        <article class="relative flex flex-col rounded-3xl border border-dashed border-royal-500/40 bg-gradient-to-br from-indigo-50/80 to-white/40 p-7" data-cat="upcoming" aria-labelledby="x-chrome">
+          <div class="flex items-start justify-between gap-3"><div class="grid h-12 w-12 place-items-center rounded-2xl bg-ink/10 text-ink/60 opacity-70"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5"/><path d="M12 8.5h8.2M8.9 14l-4.1-7.1M15.1 14l-4.1 7.1"/></svg></div><span class="rounded-full bg-royal-600 px-3 py-1 text-xs font-bold text-white">Coming soon</span></div>
+          <p class="mt-5 text-sm font-semibold text-royal-700">Upcoming / Beta</p>
+          <h4 id="x-chrome" class="mt-1 text-xl font-bold tracking-tight">Chrome Extensions</h4>
+          <p class="mt-2 flex-1 leading-relaxed text-muted">Our most-requested release is on the way: the same fast, private tools, rebuilt for the Chrome Web Store.</p>
+          <a href="#contact" data-prefill="I'd like to be notified when your Chrome extensions launch." data-subject="Chrome launch notification" class="ghost mt-6 flex items-center justify-center rounded-xl border border-royal-500/50 bg-white px-4 py-3 text-sm font-semibold text-royal-700 hover:border-royal-600">Notify me at launch</a>
+        </article>
+        </div>
+        <div id="empty" hidden class="mt-7 rounded-2xl border border-dashed border-ink/15 px-6 py-14 text-center">
+          <p class="text-lg font-bold">No extensions here yet</p>
+          <p class="mx-auto mt-2 max-w-sm text-muted">New tools will appear in this category as we publish them. Have an idea?</p>
+          <a href="#contact" class="mt-5 inline-block font-semibold text-royal-600 underline underline-offset-4">Tell us what you need</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY: four pillars -->
+<section id="philosophy" class="px-6 py-24 sm:py-32" aria-labelledby="dna-h">
+  <div class="mx-auto max-w-6xl">
+    <div class="reveal max-w-2xl">
+      <h2 id="dna-h" class="text-4xl font-extrabold tracking-[-0.035em] sm:text-5xl">Our philosophy</h2>
+      <p class="mt-4 text-lg text-muted">Trust is earned slowly. Four principles shape every line of code we ship.</p>
+    </div>
+    <div class="reveal mt-14 grid gap-px overflow-hidden rounded-3xl bg-ink/10 shadow-[0_20px_60px_-30px_rgba(67,56,202,.25)] md:grid-cols-2 lg:grid-cols-4">
+      <div class="bg-paper p-9"><svg class="text-royal-600" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg><h3 class="mt-6 text-xl font-bold">User-centric</h3><p class="mt-3 leading-relaxed text-muted">Interfaces that make sense on first use. If a tool needs a manual, we fix the tool.</p></div>
+      <div class="bg-paper p-9"><svg class="text-royal-600" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><h3 class="mt-6 text-xl font-bold">Privacy first</h3><p class="mt-3 leading-relaxed text-muted">Our extensions work on your device and send nothing to our servers. Read the <a class="font-semibold text-royal-600 underline underline-offset-4" href="privacy.html">privacy policy</a>.</p></div>
+      <div class="bg-paper p-9"><svg class="text-royal-600" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/></svg><h3 class="mt-6 text-xl font-bold">Lightweight</h3><p class="mt-3 leading-relaxed text-muted">One job, done well, in a tiny footprint that never slows your browser.</p></div>
+      <div class="bg-paper p-9"><svg class="text-royal-600" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="14" height="10" rx="2"/><path d="M6 18h6M9 14v4"/><rect x="18" y="8" width="4" height="9" rx="1"/></svg><h3 class="mt-6 text-xl font-bold">Cross-device</h3><p class="mt-3 leading-relaxed text-muted">Designed for desktop and for mobile browsers that support extensions.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ: add a details block per question -->
+<section id="faq" class="px-6 py-24 sm:py-32" aria-labelledby="faq-h">
+  <div class="mx-auto max-w-3xl">
+    <h2 id="faq-h" class="reveal text-4xl font-extrabold tracking-[-0.035em] sm:text-5xl">Frequently asked questions</h2>
+    <div class="reveal mt-12 space-y-4" style="--d:.1s">
+      <details class="faq glass group rounded-2xl px-6 py-5"><summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-left font-bold">Are your extensions free?<svg class="shrink-0 text-royal-600 transition-transform duration-300 group-open:rotate-45" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary><p class="mt-3 leading-relaxed text-muted">Pricing is always shown on the official store page of each extension. We never take payments through this website.</p></details>
+      <details class="faq glass group rounded-2xl px-6 py-5"><summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-left font-bold">Is my data safe?<svg class="shrink-0 text-royal-600 transition-transform duration-300 group-open:rotate-45" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary><p class="mt-3 leading-relaxed text-muted">Yes. Our extensions process data locally on your device and do not send it to our servers. They contain no analytics or trackers. See our <a class="font-semibold text-royal-600 underline underline-offset-4" href="privacy.html">privacy policy</a>.</p></details>
+      <details class="faq glass group rounded-2xl px-6 py-5"><summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-left font-bold">Does it work on mobile?<svg class="shrink-0 text-royal-600 transition-transform duration-300 group-open:rotate-45" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary><p class="mt-3 leading-relaxed text-muted">Our extensions are lightweight and built for small screens too. They work in mobile browsers that support extensions, such as Firefox for Android. Support varies by browser and device, so check the compatibility note on each store listing.</p></details>
+      <details class="faq glass group rounded-2xl px-6 py-5"><summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-left font-bold">Which browsers do you support?<svg class="shrink-0 text-royal-600 transition-transform duration-300 group-open:rotate-45" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary><p class="mt-3 leading-relaxed text-muted">Firefox and Microsoft Edge today. Chrome versions are on the way.</p></details>
+      <details class="faq glass group rounded-2xl px-6 py-5"><summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-left font-bold">How do I report a bug or suggest a feature?<svg class="shrink-0 text-royal-600 transition-transform duration-300 group-open:rotate-45" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary><p class="mt-3 leading-relaxed text-muted">Use the contact form below. We read every message and reply as soon as possible.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="px-6 py-24 sm:py-32" aria-labelledby="c-h">
+  <div class="relative mx-auto grid max-w-6xl gap-10 overflow-hidden rounded-[2rem] bg-gradient-to-br from-royal-600 via-royal-700 to-[#1e1b4b] p-8 shadow-[0_40px_100px_-40px_rgba(67,56,202,.7)] sm:p-12 lg:grid-cols-5 lg:items-center"><div class="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-indigo-300/30 blur-3xl" aria-hidden="true"></div>
+    <div class="reveal lg:col-span-2">
+      <h2 id="c-h" class="text-white text-4xl font-extrabold tracking-[-0.035em] sm:text-5xl">Let's talk</h2>
+      <p class="mt-4 text-lg leading-relaxed text-indigo-100">Questions, feedback or an idea for a tool you wish existed? Send a message. A real person reads every one and replies as soon as possible.</p>
+    </div>
+    <div class="reveal relative rounded-3xl bg-white p-7 shadow-2xl sm:p-10 lg:col-span-3" style="--d:.1s">
+      <div id="success" class="hidden py-10 text-center" role="status" tabindex="-1">
+        <div class="mx-auto grid h-16 w-16 place-items-center rounded-full bg-emerald-100 text-emerald-700"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="check" d="m5 12.5 4.5 4.5L19 7.5"/></svg></div>
+        <h3 class="mt-6 text-2xl font-bold">Message received</h3>
+        <p class="mx-auto mt-2 max-w-sm text-muted">Thank you for reaching out. We will get back to you soon.</p>
+      </div>
+      <form id="form" action="https://formspree.io/f/myezrzqr" method="POST" class="space-y-5" novalidate>
+        <div class="grid gap-5 sm:grid-cols-2">
+          <div><label for="name" class="mb-2 block text-sm font-semibold">Name</label>
+            <input id="name" name="name" type="text" required autocomplete="name" class="w-full rounded-xl border border-ink/20 bg-white px-4 py-3 text-base" placeholder="Your name"></div>
+          <div><label for="email" class="mb-2 block text-sm font-semibold">Email</label>
+            <input id="email" name="email" type="email" required autocomplete="email" class="w-full rounded-xl border border-ink/20 bg-white px-4 py-3 text-base" placeholder="you@example.com"></div>
+        </div>
+        <div><label for="subject" class="mb-2 block text-sm font-semibold">Subject</label>
+          <div class="relative">
+            <select id="subject" name="subject" required class="w-full appearance-none rounded-xl border border-ink/20 bg-white px-4 py-3 pr-11 text-base">
+              <option value="" disabled selected>Choose a subject</option>
+              <option value="General question">General question</option>
+              <option value="Bug report">Bug report</option>
+              <option value="Feature request or idea">Feature request or idea</option>
+              <option value="Chrome launch notification">Chrome launch notification</option>
+              <option value="Partnership or press">Partnership or press</option>
+              <option value="Other">Other</option>
+            </select>
+            <svg class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-muted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </div></div>
+        <div><label for="message" class="mb-2 block text-sm font-semibold">Message</label>
+          <textarea id="message" name="message" rows="5" required class="w-full resize-y rounded-xl border border-ink/20 bg-white px-4 py-3 text-base" placeholder="How can we help?"></textarea></div>
+        <input type="hidden" name="_subject" id="_subject" value="Masum Labs website message">
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true">
+        <button id="send" type="submit" class="btn w-full rounded-xl px-6 py-3.5 font-semibold text-white disabled:opacity-70">Send message</button>
+        <p id="msg" class="min-h-[1.5rem] text-center text-sm font-semibold" role="alert"></p>
+        <p class="text-center text-sm text-muted">Your details are used only to reply to you. We never share them.</p>
+      </form>
+    </div>
+  </div>
+</section>
 </main>
-<footer class="border-t border-ink/10 px-6 pb-8 pt-16"><div class="mx-auto max-w-6xl"><div class="grid gap-12 lg:grid-cols-[1.4fr_2.6fr]"><div><a href="#top" class="flex items-center gap-2.5 text-lg tracking-[-0.03em]" aria-label="Masum Labs home"><svg class="h-9 w-9 shrink-0" width="36" height="36" viewBox="0 0 24 24" aria-hidden="true"><use href="#ml-logo"/></svg><span><span class="font-bold">Masum</span> <span class="font-medium text-muted">Labs</span></span></a><p class="mt-4 max-w-xs text-[15px] leading-relaxed text-muted">Fast, private browser extensions that give you your time back.</p></div><div class="grid gap-10 sm:grid-cols-3"><nav aria-label="Extension categories"><h3 class="text-sm font-bold">Extension Categories</h3><ul class="mt-4 space-y-3 text-[15px] text-muted"><li><a href="?cat=privacy#extensions" data-cat-link="privacy" class="transition hover:text-royal-600">Privacy &amp; Security</a></li><li><a href="?cat=productivity#extensions" data-cat-link="productivity" class="transition hover:text-royal-600">Productivity &amp; SEO</a></li><li><a href="?cat=education#extensions" data-cat-link="education" class="transition hover:text-royal-600">Education</a></li><li><a href="?cat=devtools#extensions" data-cat-link="devtools" class="transition hover:text-royal-600">Developer Tools</a></li></ul></nav><nav aria-label="Internal and legal"><h3 class="text-sm font-bold">Internal &amp; Legal</h3><ul class="mt-4 space-y-3 text-[15px] text-muted"><li><a href="privacy.html" class="transition hover:text-royal-600">Privacy Policy</a></li><li><a href="terms.html" class="transition hover:text-royal-600">Terms of Service</a></li><li><a href="#contact" aria-current="page" class="font-semibold text-royal-600">Contact Us</a></li></ul></nav><nav aria-label="External and connect"><h3 class="text-sm font-bold">External &amp; Connect</h3><ul class="mt-4 space-y-3 text-[15px] text-muted"><li><a href="https://masumlabs.blogspot.com/" target="_blank" rel="noopener noreferrer" class="transition hover:text-royal-600">Masum Labs Blog</a></li><li><a href="https://www.facebook.com/MasumLabs" target="_blank" rel="noopener noreferrer" class="transition hover:text-royal-600">Facebook Page</a></li></ul></nav></div></div><div class="mt-14 flex flex-col items-center justify-between gap-2 border-t border-ink/10 pt-6 text-sm text-muted sm:flex-row"><p>&copy; 2026 Masum Labs. All rights reserved.</p><p>Masum Labs - Developer &amp; Publisher</p></div></div></footer>
+
+<footer class="border-t border-ink/10 px-6 pb-8 pt-16">
+  <div class="mx-auto max-w-6xl">
+    <div class="grid gap-12 lg:grid-cols-[1.4fr_2.6fr]">
+      <div>
+        <a href="#top" class="flex items-center gap-2.5 text-lg tracking-[-0.03em]" aria-label="Masum Labs home"><svg class="h-9 w-9 shrink-0" width="36" height="36" viewBox="0 0 24 24" aria-hidden="true"><use href="#ml-logo"/></svg><span><span class="font-bold">Masum</span> <span class="font-medium text-muted">Labs</span></span></a>
+        <p class="mt-4 max-w-xs text-[15px] leading-relaxed text-muted">Fast, private browser extensions that give you your time back.</p>
+      </div>
+      <div class="grid gap-10 sm:grid-cols-3">
+        <!-- Column 1: Extension categories (match the tabs in index.html) -->
+        <nav aria-label="Extension categories"><h3 class="text-sm font-bold">Extension Categories</h3><ul class="mt-4 space-y-3 text-[15px] text-muted">
+          <li><a href="?cat=privacy#extensions" data-cat-link="privacy" class="transition hover:text-royal-600">Privacy &amp; Security</a></li>
+          <li><a href="?cat=productivity#extensions" data-cat-link="productivity" class="transition hover:text-royal-600">Productivity &amp; SEO</a></li>
+          <li><a href="?cat=education#extensions" data-cat-link="education" class="transition hover:text-royal-600">Education</a></li>
+          <li><a href="?cat=devtools#extensions" data-cat-link="devtools" class="transition hover:text-royal-600">Developer Tools</a></li>
+        </ul></nav>
+        <!-- Column 2: Internal and legal pages -->
+        <nav aria-label="Internal and legal"><h3 class="text-sm font-bold">Internal &amp; Legal</h3><ul class="mt-4 space-y-3 text-[15px] text-muted">
+          <li><a href="privacy.html" class="transition hover:text-royal-600">Privacy Policy</a></li>
+          <li><a href="terms.html" class="transition hover:text-royal-600">Terms of Service</a></li>
+          <li><a href="#contact" aria-current="page" class="font-semibold text-royal-600">Contact Us</a></li>
+        </ul></nav>
+        <!-- Column 3: External links. Always keep the arrow icon and target/rel attributes -->
+        <nav aria-label="External and connect"><h3 class="text-sm font-bold">External &amp; Connect</h3><ul class="mt-4 space-y-3 text-[15px] text-muted">
+          <li><a href="https://masumlabs.blogspot.com/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 transition hover:text-royal-600">Masum Labs Blog<svg class="shrink-0 opacity-60" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg><span class="sr-only">(opens in a new tab)</span></a></li>
+          <li><a href="https://www.facebook.com/MasumLabs" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 transition hover:text-royal-600"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.8-4.7 4.54-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.26h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07Z"/></svg>Facebook Page<svg class="shrink-0 opacity-60" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg><span class="sr-only">(opens in a new tab)</span></a></li>
+        </ul></nav>
+      </div>
+    </div>
+    <div class="mt-14 flex flex-col items-center justify-between gap-2 border-t border-ink/10 pt-6 text-sm text-muted sm:flex-row">
+      <p>&copy; 2026 Masum Labs. All rights reserved.</p>
+      <p>Masum Labs - Developer &amp; Publisher</p>
+    </div>
+  </div>
+</footer>
+
 <script>
-(() => { const $ = (s,c=document)=>c.querySelector(s), $$=(s,c=document)=>[...c.querySelectorAll(s)]; const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12,rootMargin:'0px 0px -40px 0px'}); $$('.reveal').forEach(el=>io.observe(el)); const links=$$('nav a.link'); const spy=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(a=>a.setAttribute('aria-current',String(a.getAttribute('href')==='#'+e.target.id)));}),{rootMargin:'-45% 0px -50% 0px'}); $$('main section[id]').forEach(s=>spy.observe(s)); const burger=$('#burger'),menu=$('#menu'); const setMenu=open=>{menu.classList.toggle('hidden',!open);menu.classList.toggle('flex',open);burger.setAttribute('aria-expanded',String(open));burger.setAttribute('aria-label',open?'Close menu':'Open menu');}; burger.addEventListener('click',()=>setMenu(burger.getAttribute('aria-expanded')!=='true')); links.forEach(a=>a.addEventListener('click',()=>{if(innerWidth<768)setMenu(false);})); addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false);}); $$('.spot').forEach(c=>c.addEventListener('pointermove',e=>{const r=c.getBoundingClientRect();c.style.setProperty('--x',e.clientX-r.left+'px');c.style.setProperty('--y',e.clientY-r.top+'px');})); const msgBox=$('#message'); $$('[data-prefill]').forEach(a=>a.addEventListener('click',()=>{if(!msgBox.value.trim())msgBox.value=a.dataset.prefill;if(a.dataset.subject){const sel=$('#subject');if(!sel.value)sel.value=a.dataset.subject;}setTimeout(()=>$('#name').focus({preventScroll:true}),600);})); const form=$('#form'),send=$('#send'),note=$('#msg'); const say=(t,ok)=>{note.textContent=t;note.className='min-h-[1.5rem] text-center text-sm font-semibold '+(ok?'text-emerald-700':'text-red-700');}; form.addEventListener('submit',async e=>{e.preventDefault();const bad=$$('input[required],textarea[required],select[required]',form).find(f=>!f.checkValidity());if(bad){bad.setAttribute('aria-invalid','true');bad.focus();say(bad.type==='email'?'Please enter a valid email address.':bad.id==='subject'?'Please choose a subject.':'Please fill in every field.',false);return;} $$('[aria-invalid]',form).forEach(f=>f.removeAttribute('aria-invalid')); $('#_subject').value='Masum Labs: '+$('#subject').value;send.disabled=true;send.textContent='Sending...';say('',true);try{const r=await fetch(form.action,{method:'POST',body:new FormData(form),headers:{Accept:'application/json'}});if(!r.ok)throw 0;form.classList.add('hidden');const ok=$('#success');ok.classList.remove('hidden');ok.focus();form.reset();}catch(_){say('Message not sent. Check your connection and try again.',false);}finally{send.disabled=false;send.textContent='Send message';}});})();
-</script>
-<script>
-(() => { const tabs=[...document.querySelectorAll('.tab')],cards=[...document.querySelectorAll('#cards > [data-cat]')],title=document.getElementById('cat-title'),desc=document.getElementById('cat-desc'),empty=document.getElementById('empty'),panel=document.getElementById('panel'),keys=tabs.map(t=>t.dataset.cat); tabs.forEach(t=>{const k=t.dataset.cat;t.querySelector('.count').textContent=cards.filter(c=>k==='all'?c.dataset.cat!=='upcoming':c.dataset.cat===k).length;}); function select(k,focus){tabs.forEach(t=>{const on=t.dataset.cat===k;t.setAttribute('aria-selected',on);t.tabIndex=on?0:-1;if(on){title.textContent=t.dataset.title;desc.textContent=t.dataset.desc;panel.setAttribute('aria-labelledby',t.id);if(focus)t.focus();}});let n=0;cards.forEach(c=>{const show=k==='all'||c.dataset.cat===k;c.hidden=!show;if(show){n++;c.classList.remove('pop');void c.offsetWidth;c.classList.add('pop');}});empty.hidden=n>0;} tabs.forEach((t,i)=>{t.addEventListener('click',()=>select(t.dataset.cat));t.addEventListener('keydown',e=>{const map={ArrowDown:1,ArrowRight:1,ArrowUp:-1,ArrowLeft:-1};if(e.key in map){e.preventDefault();select(keys[(i+map[e.key]+keys.length)%keys.length],true);}else if(e.key==='Home'){e.preventDefault();select(keys[0],true);}else if(e.key==='End'){e.preventDefault();select(keys[keys.length-1],true);}});}); document.querySelectorAll('[data-cat-link]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();select(a.dataset.catLink);document.getElementById('extensions').scrollIntoView({behavior:'smooth'});})); const q=new URLSearchParams(location.search).get('cat');select(keys.includes(q)?q:'all');})();
+(() => {
+  const $ = (s, c = document) => c.querySelector(s), $$ = (s, c = document) => [...c.querySelectorAll(s)];
+
+  // Scroll reveal (native IntersectionObserver, transform/opacity only: no layout shift)
+  const io = new IntersectionObserver((es) => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12, rootMargin: '0px 0px -40px 0px' });
+  $$('.reveal').forEach(el => io.observe(el));
+
+  // Active nav link
+  const links = $$('nav a.link');
+  const spy = new IntersectionObserver((es) => es.forEach(e => {
+    if (e.isIntersecting) links.forEach(a => a.setAttribute('aria-current', String(a.getAttribute('href') === '#' + e.target.id)));
+  }), { rootMargin: '-45% 0px -50% 0px' });
+  $$('main section[id]').forEach(s => spy.observe(s));
+
+  // Mobile menu
+  const burger = $('#burger'), menu = $('#menu');
+  const setMenu = (open) => { menu.classList.toggle('hidden', !open); menu.classList.toggle('flex', open); burger.setAttribute('aria-expanded', String(open)); burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu'); };
+  burger.addEventListener('click', () => setMenu(burger.getAttribute('aria-expanded') !== 'true'));
+  links.forEach(a => a.addEventListener('click', () => { if (innerWidth < 768) setMenu(false); }));
+  addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
+
+  // Card spotlight follows the cursor
+  $$('.spot').forEach(c => c.addEventListener('pointermove', (e) => { const r = c.getBoundingClientRect(); c.style.setProperty('--x', e.clientX - r.left + 'px'); c.style.setProperty('--y', e.clientY - r.top + 'px'); }));
+
+  // "Notify me" pre-fills the contact message
+  const msgBox = $('#message');
+  $$('[data-prefill]').forEach(a => a.addEventListener('click', () => { if (!msgBox.value.trim()) msgBox.value = a.dataset.prefill; if (a.dataset.subject) { const sel = $('#subject'); if (!sel.value) sel.value = a.dataset.subject; } setTimeout(() => $('#name').focus({ preventScroll: true }), 600); }));
+
+  // Form: inline validation + robust Formspree AJAX
+  const form = $('#form'), send = $('#send'), note = $('#msg');
+  const say = (t, ok) => {
+    note.textContent = t;
+    note.className = 'min-h-[1.5rem] text-center text-sm font-semibold ' +
+      (ok ? 'text-emerald-700' : 'text-red-700');
+  };
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const bad = $$('input[required], textarea[required], select[required]', form)
+      .find(f => !f.checkValidity());
+
+    if (bad) {
+      bad.setAttribute('aria-invalid', 'true');
+      bad.focus();
+      say(
+        bad.type === 'email'
+          ? 'Please enter a valid email address.'
+          : bad.id === 'subject'
+            ? 'Please choose a subject.'
+            : 'Please fill in every field.',
+        false
+      );
+      return;
+    }
+
+    $$('[aria-invalid]', form).forEach(f => f.removeAttribute('aria-invalid'));
+
+    const subject = $('#subject').value.trim();
+    $('#_subject').value = 'Masum Labs: ' + subject;
+
+    send.disabled = true;
+    send.textContent = 'Sending...';
+    say('', true);
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' }
+      });
+
+      const contentType = response.headers.get('content-type') || '';
+      let data = null;
+
+      if (contentType.includes('application/json')) {
+        data = await response.json();
+      } else {
+        await response.text();
+      }
+
+      if (!response.ok) {
+        const errors = Array.isArray(data?.errors)
+          ? data.errors.map(error => error?.message).filter(Boolean).join(' ')
+          : '';
+
+        if (response.status === 403) {
+          throw new Error('Form submission was blocked. Check the Formspree domain settings.');
+        }
+        if (response.status === 422) {
+          throw new Error(errors || 'Please check the form fields and try again.');
+        }
+        if (response.status === 429) {
+          throw new Error('Too many submissions. Please wait a moment and try again.');
+        }
+
+        throw new Error(errors || `Form submission failed (${response.status}).`);
+      }
+
+      form.classList.add('hidden');
+      const success = $('#success');
+      success.classList.remove('hidden');
+      success.focus();
+      form.reset();
+
+    } catch (error) {
+      console.error('Masum Labs Formspree submission error:', error);
+
+      if (error instanceof TypeError) {
+        say(
+          'Unable to reach the form service. Please check your connection or disable a browser blocker and try again.',
+          false
+        );
+      } else {
+        say(error.message || 'Message could not be sent. Please try again.', false);
+      }
+
+    } finally {
+      send.disabled = false;
+      send.textContent = 'Send message';
+    }
+  });
+
+  // Live counts per category (the "All" count excludes upcoming items)
+  tabs.forEach(t => { const k = t.dataset.cat; t.querySelector('.count').textContent = cards.filter(c => k === 'all' ? c.dataset.cat !== 'upcoming' : c.dataset.cat === k).length; });
+  function select(k, focus) {
+    tabs.forEach(t => { const on = t.dataset.cat === k; t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; if (on) { title.textContent = t.dataset.title; desc.textContent = t.dataset.desc; panel.setAttribute('aria-labelledby', t.id); if (focus) t.focus(); } });
+    let n = 0;
+    cards.forEach(c => { const show = k === 'all' || c.dataset.cat === k; c.hidden = !show; if (show) { n++; c.classList.remove('pop'); void c.offsetWidth; c.classList.add('pop'); } });
+    empty.hidden = n > 0;
+  }
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => select(t.dataset.cat));
+    t.addEventListener('keydown', e => {
+      const map = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 };
+      if (e.key in map) { e.preventDefault(); select(keys[(i + map[e.key] + keys.length) % keys.length], true); }
+      else if (e.key === 'Home') { e.preventDefault(); select(keys[0], true); }
+      else if (e.key === 'End') { e.preventDefault(); select(keys[keys.length - 1], true); }
+    });
+  });
+  // Footer category links: switch tab and scroll
+  document.querySelectorAll('[data-cat-link]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); select(a.dataset.catLink); document.getElementById('extensions').scrollIntoView({ behavior: 'smooth' }); }));
+  const q = new URLSearchParams(location.search).get('cat');
+  select(keys.includes(q) ? q : 'all');
+})();
 </script>
 </body>
 </html>
